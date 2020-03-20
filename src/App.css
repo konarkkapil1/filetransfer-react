@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+.sidebar{
+  height: 100vh;
+  float: left;
+  color: #FFF;
+}
+
+.header-logo{
+  margin-top: -7px;
+}
+.sidebar-heading{
+  padding:7px;
+  margin-top: 5px;
+  /* border: 1px solid white; */
+}

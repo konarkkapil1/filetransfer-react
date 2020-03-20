@@ -2,49 +2,57 @@ import React, { Component } from 'react';
 import { Container,Row,Col,Alert } from 'reactstrap';
 import Header from '../header/header';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import qs from 'qs';
+import { Redirect } from 'react-router-dom';
 
 
 class login extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            'email':'',
-            'password':'',
-            'error':''
-        };
-    }
-    changeHandler = (e) =>{
-        this.setState({[e.target.name]: e.target.value});
-    }
+constructor(props){
+    super(props);
+    this.state = {
+        'email':'',
+        'password':'',
+        'error':''
+    };
+}
+changeHandler = (e) =>{
+    this.setState({[e.target.name]: e.target.value});
+}
 
-    submitHandler = (e) => {
-        e.preventDefault();
-        if(this.state.email === '' || this.state.password === ''){
-            this.setState({'error':<Alert color="danger">Fields cannot be empty !</Alert>})
-        }
-        else{
-
-            axios.post("/filetransfer/api/account/login.php",qs.stringify(this.state))
-                .then(response =>{
-                    if(!(response.data.token == null)){
-                        this.props.history.push('/dashboard');
-                    }else{
-                        this.setState({'error':<Alert color="danger">Wrong username and password combination !</Alert>})
-                    }
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        }
+submitHandler = (e) => {
+    e.preventDefault();
+    if(this.state.email === '' || this.state.password === ''){
+        this.setState({'error':<Alert color="danger">Fields cannot be empty !</Alert>})
     }
+    else{
 
-    render(){
-        const {email,password} = this.state;
+        axios.post("/filetransfer/api/account/login.php",qs.stringify(this.state))
+            .then(response =>{
+                if(!(response.data.token == null)){
+                    this.props.history.push('/dashboard');
+                }else{
+                    this.setState({'error':<Alert color="danger">Wrong username and password combination !</Alert>})
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+}
+
+render(){
+    const {email,password} = this.state;
+    const cookie = Cookies.get('token')
+    if(cookie !== undefined){
+        return(
+            <Redirect to="/dashboard" />
+        );
+    }else{
         return(
             <div>
                 <Header navlink="/track" linktext="Track File"/>
-                <Container className="login-holder">
+                <Container className="login-holder mt-5">
                     <Row>
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
                             <form className="form margin-10vh" onSubmit={this.submitHandler}>
@@ -71,6 +79,8 @@ class login extends Component{
             </div>
         );
     }
+    
+}
 }
 
 export default login;
