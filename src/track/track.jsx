@@ -4,7 +4,6 @@ import axios from 'axios';
 import qs from 'qs';
 import Header from '../header/header';
 
-
 class track extends Component {
     constructor(props){
         super(props)
@@ -47,12 +46,13 @@ class track extends Component {
         const {data,filenumber,isloading} = this.state
         return(
             <React.Fragment>
-                <Header navlink="/" linktext="Login" />
+                <Header navlink="/" linktext="LOGIN" />
                 <Container className="login-holder mt-5">
+                    
                     <Row>
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
                             <form className="form margin-10vh" onSubmit={this.submitHandler}>
-                                <h1 className="h3 mb-3 font-weight-normal text-center">Track File</h1>
+                                <h1 className="h3 mb-3 font-weight-normal text-center">TRACK FILE</h1>
                                 
                                 <div className="input-group mb-3">
                                     <label className="sr-only">File Number</label>
@@ -60,14 +60,16 @@ class track extends Component {
                                 </div>
                                 
                                 
-                                <button className="btn btn-lg btn-primary btn-block" type="submit">Track</button>
+                                <button className="btn btn-lg btn-primary btn-block" type="submit">TRACK</button>
                                 <div className="mt-3">
                                     {this.state.error}
                                 </div>
                                 
                             </form>
                         </Col>
+                        
                     </Row>
+                    
                     {
                         !isloading ? 
                             (data.map(record =>{

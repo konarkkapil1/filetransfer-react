@@ -5,9 +5,17 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import qs from 'qs';
 import { Redirect } from 'react-router-dom';
+import Loginimage from '../assets/login.png';
 
+var styles = {
+    backgroundImage: `url(${Loginimage})`,
+    backgroundPosition: '30px 10px',
+    backgroundSize: '500px',
+    backgroundRepeat: 'no-repeat'
+};
 
 class login extends Component{
+
 constructor(props){
     super(props);
     this.state = {
@@ -41,6 +49,7 @@ submitHandler = (e) => {
     }
 }
 
+
 render(){
     const {email,password} = this.state;
     const cookie = Cookies.get('token')
@@ -50,13 +59,13 @@ render(){
         );
     }else{
         return(
-            <div>
-                <Header navlink="/track" linktext="Track File"/>
+            <div >
+                <Header navlink="/track" linktext="TRACK FILE"/>
                 <Container className="login-holder mt-5">
                     <Row>
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
                             <form className="form margin-10vh" onSubmit={this.submitHandler}>
-                                <h1 className="h3 mb-3 font-weight-normal text-center">Sign in</h1>
+                                <h1 className="h3 mb-3 font-weight-normal text-center">SIGN IN</h1>
                                 <div className="input-group mb-3">
                                     <label className="sr-only">Email address</label>
                                     <input type="email" id="inputEmail" value={email} className="form-control"  name="email" onChange={this.changeHandler} placeholder="Email address" required=""></input>
@@ -67,7 +76,7 @@ render(){
                                 </div>
                                 
                                 
-                                <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                                <button className="btn btn-lg btn-primary btn-block" type="submit">SIGN IN</button>
                                 <div className="mt-3">
                                     {this.state.error}
                                 </div>

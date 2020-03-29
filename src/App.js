@@ -9,7 +9,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter forceRefresh={true} basename={process.env.REACT_APP_BASENAME || ""}> 
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/track" component={Track} />

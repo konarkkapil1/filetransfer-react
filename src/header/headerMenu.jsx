@@ -11,7 +11,7 @@ class headerMenu extends Component{
     }
     render(){
         return(
-            <NavLink href={this.props.navlink}><Button color="primary">{this.props.linktext}</Button></NavLink>
+            <NavLink href={this.props.navlink}><Button outline color="primary">{this.props.linktext}</Button></NavLink>
         );
     }
 }

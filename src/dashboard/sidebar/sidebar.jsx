@@ -1,26 +1,41 @@
 import React, {Component} from 'react'
 import {Nav, NavItem} from 'reactstrap'
 import { Link, BrowserRouter, Switch,Route } from 'react-router-dom'
-
+import Homeicon from '../../assets/home.png'
+import Addfile from '../../assets/addfile.png'
+import Trackfile from '../../assets/trackfile.png'
+import Filehistory from '../../assets/filetrack.png'
 
 class sidebar extends Component{
     render(){
         return( 
-            <nav className="sidebar bg-dark sidebar-height col-md-2 d-none d-md-block">
+            <nav className="sidebar sidebar-style bg-dark sidebar-height col-md-2 d-none d-md-block">
                 <div className="sidebar-sticky">
+
                     <div className="sidebar-heading">
                         <h3>Dashboard</h3>
                     </div>
-                        <Nav vertical>
-                            <NavItem>
-                                <Link to="/dashboard/file">File Tracking</Link>
-                            </NavItem>
 
-                            <NavItem>
-                                <Link to="#">link 1</Link>
-                            </NavItem>
-                            
-                        </Nav>
+                    <Nav vertical className="sidebar-menu">
+
+                        <NavItem className="sidebar-navitem">
+                            <Link className="sidebarlink" to="/"><span><img style={{marginTop:-5+'px'}} height="20px" src={Homeicon}/></span> Home</Link>
+                        </NavItem>
+                        
+                        <NavItem className="sidebar-navitem">
+                            <Link className="sidebarlink" to="/dashboard/create-file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Addfile}/></span> Create File</Link>
+                        </NavItem>
+
+                        <NavItem className="sidebar-navitem">
+                            <Link className="sidebarlink" to="/dashboard/file-history"><span><img style={{marginTop:-5+'px'}} height="20px" src={Filehistory}/></span> File History</Link>
+                        </NavItem>
+
+                        <NavItem className="sidebar-navitem">
+                            <Link className="sidebarlink" to="/dashboard/file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Trackfile}/></span> File Tracking</Link>
+                        </NavItem>
+                        
+                    </Nav>
+                    
                 </div>
                 
                 
