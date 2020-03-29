@@ -83,6 +83,9 @@
 .sidebar-navitem:hover{
   background-color: #535c66 !important;
 }
+.active{
+  background-color: #535c66 !important;
+}
 .sidebar{
   padding: 0px !important;
   position: fixed !important;

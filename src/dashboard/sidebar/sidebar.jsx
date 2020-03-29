@@ -7,6 +7,15 @@ import Trackfile from '../../assets/trackfile.png'
 import Filehistory from '../../assets/filetrack.png'
 
 class sidebar extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            'class': ''
+        }
+    }
+    addclass = () =>{
+        this.setState({'class':'active'})
+    }
     render(){
         return( 
             <nav className="sidebar sidebar-style bg-dark sidebar-height col-md-2 d-none d-md-block">
