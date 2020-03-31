@@ -10,14 +10,13 @@ class sidebar extends Component{
     constructor(props){
         super(props)
         this.state = {
-            'class': ''
+            'active': false
         }
     }
-    addclass = () =>{
-        this.setState({'class':'active'})
-    }
+    
     render(){
-        return( 
+        console.log(window.location.href)
+        return(
             <nav className="sidebar sidebar-style bg-dark sidebar-height col-md-2 d-none d-md-block">
                 <div className="sidebar-sticky">
 
@@ -28,7 +27,7 @@ class sidebar extends Component{
                     <Nav vertical className="sidebar-menu">
 
                         <NavItem className="sidebar-navitem">
-                            <Link className="sidebarlink" to="/"><span><img style={{marginTop:-5+'px'}} height="20px" src={Homeicon}/></span> Home</Link>
+                            <Link className="sidebarlink" to="/dashboard"><span><img style={{marginTop:-5+'px'}} height="20px" src={Homeicon}/></span> Home</Link>
                         </NavItem>
                         
                         <NavItem className="sidebar-navitem">
@@ -40,7 +39,7 @@ class sidebar extends Component{
                         </NavItem>
 
                         <NavItem className="sidebar-navitem">
-                            <Link className="sidebarlink" to="/dashboard/file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Trackfile}/></span> File Tracking</Link>
+                            <Link className="sidebarlink" to="/dashboard/file-tracking"><span><img style={{marginTop:-5+'px'}} height="20px" src={Trackfile}/></span> File Tracking</Link>
                         </NavItem>
                         
                     </Nav>

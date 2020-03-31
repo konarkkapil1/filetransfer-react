@@ -9,7 +9,7 @@ class header extends Component{
     }
     render(){
         return(
-            <Navbar className="header" color="light" light>
+            <Navbar className="header" light>
                 <div className="container">
                     <NavbarBrand href="/"><img alt="file tracking system" src={Folder} height="30px" className="header-logo" />  File Management</NavbarBrand>
                     <Nav className="ml-auto" navbar>

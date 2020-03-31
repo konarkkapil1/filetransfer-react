@@ -1,52 +1,59 @@
-import React, {Component} from 'react'
+import React , {Component} from 'react'
 import Pageheading from '../page-heading/pageheading'
 import { Table , Spinner, Button, Form,Alert} from 'reactstrap'
 import axios from 'axios'
-import qs from 'qs'
 
-class trackfile extends Component{
+class filetracking extends Component{
     constructor(props){
         super(props)
         this.state = {
+            'apidata':[],
+            'search':'',
             'error':'',
-            'isloading':true,
-            'data': [],
-            'searchfield':'',
-            'filtereddata':[]
+            'isloading':''
         }
     }
 
     Fetchdata = () => {
         this.setState({'isloading':true})
-        axios.post("/filetransfer/api/files/tracking.php")
-            .then(response => {
-                if(!(response.data == null)){
-                    this.setState({'data':response.data})
+        axios.post("/filetransfer/api/files/history.php")
+            .then(data => {
+                if(!(data == null)){
+                    this.setState({'apidata': data.data})
                     this.setState({'isloading':false})
                 }else{
-                    //if no data found do something here
                     this.setState({'isloading':false})
-                    console.log("No data found")
+                    this.setState({'apidata':<Alert color="warning">No Data Found</Alert>})
                 }
+                
             })
             .catch(error => console.log(error))
+    }
+
+    Handlechange = (event) => {
+        this.setState({'search': event.target.value})
+        console.log(this.state.apidata)
     }
 
     componentDidMount(){
         this.Fetchdata()
     }
 
-    searchChange = (event) => {
-        this.setState({'searchfield':event.target.value})
-        console.log(this.state.searchfield)
-    }
-    
     render(){
-        const {isloading , data ,searchfield} = this.state
+        const { apidata,search } = this.state
+        
+        var filtereddata = []
+
+        if(!(apidata == null)){
+            console.log(apidata)
+            filtereddata = apidata.filter(newdata => 
+                newdata.file_number.includes(search)
+            )
+        }
+
         return(
             <React.Fragment>
-                <Pageheading name="File History" />
-                
+                <Pageheading name="File History"/>
                 <div className="content-container">
                     <div className="content-body dashboard-table">
                          
@@ -54,53 +61,46 @@ class trackfile extends Component{
                             <div className="search-box">
                                 <Form>
                                     <label>SEARCH: </label>
-                                    <input className="search-input" onChange={this.searchChange} type="text" placeholder="File number" ></input>
+                                    <input className="search-input" onChange={this.Handlechange} type="text" placeholder="File number" ></input>
                                 </Form>
                             </div>
-                            
                             <Table hover>
-                            
                                 <thead>
                                     <tr>
-                                    <th>SERIAL</th>
-                                    <th>FILE NUMBER</th>
-                                    <th>FROM USER</th>
-                                    <th></th>
-                                    <th>TO USER</th>
-                                    <th>TIME</th>
+                                        <th>SERIAL</th>
+                                        <th>TRACKING ID</th>
+                                        <th>FILE NUMBER</th>
+                                        <th>CREATED ON</th>
                                     </tr>
                                 </thead>
-                                
                                 <tbody>
-                                    {
-                                        !isloading ? 
-                                            !(data == '') ?
-                                                data.map(result => {
-                                                    const {serial, file_number,from,to,timestamp} = result
-                                                    return(
-                                                        <tr>
-                                                            <td>{serial}</td>
-                                                            <td>{file_number}</td>
-                                                            <td>{from}</td>
-                                                            <th>➡️</th>
-                                                            <td>{to}</td>
-                                                            <td>{timestamp}</td>
+                                    
+                                        {
+                                            
+                                            filtereddata.map(freshdata => 
+                                                (
+                                                    
+                                                        <tr key={freshdata.serial}>
+                                                            <td>{freshdata.serial}</td>
+                                                            <td>{freshdata.trackingid}</td>
+                                                            <td>{freshdata.file_number}</td>
+                                                            <td>{freshdata.created_on}</td>
                                                         </tr>
-                                                    )
-                                                })
-                                            : <Alert color="warning">No Data Found</Alert>
-        
-                                        : (<div><Spinner color="primary" /></div>)
-                                    }
+                                                    
+                                                )
+                                            )
+                                            
+                                        }
                                 </tbody>
                             </Table>
-                            
                         </div>
+
                     </div>
                 </div>
             </React.Fragment>
-        );
+            
+        )
     }
 }
 
-export default trackfile
+export default filetracking
