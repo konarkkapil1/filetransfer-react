@@ -37,7 +37,7 @@ class createfile extends Component{
             this.setState({'isloading':true})
             axios.post("/filetransfer/api/files/create.php",qs.stringify(this.state))
                 .then(response => (
-                    console.log(response.data.filenumber),
+                    console.log(response.data),
                     this.setState({'response': <Infomodal title='File Created' body={response.data.filenumber} toplabel='File has been create save this file number for future refrence' />}),
                     this.setState({'isloading':false})
                 ))

@@ -18,7 +18,9 @@ class filetracking extends Component{
         this.setState({'isloading':true})
         axios.post("/filetransfer/api/files/history.php")
             .then(data => {
+                console.log(data)
                 if(!(data == null)){
+                    console.log(data)
                     this.setState({'apidata': data.data})
                     this.setState({'isloading':false})
                 }else{
@@ -40,12 +42,11 @@ class filetracking extends Component{
     }
 
     render(){
-        const { apidata,search } = this.state
+        const { apidata,search,isloading } = this.state
         
         var filtereddata = []
 
         if(!(apidata == null)){
-            console.log(apidata)
             filtereddata = apidata.filter(newdata => 
                 newdata.file_number.includes(search)
             )
@@ -76,7 +77,7 @@ class filetracking extends Component{
                                 <tbody>
                                     
                                         {
-                                            
+                                            !isloading ?
                                             filtereddata.map(freshdata => 
                                                 (
                                                     
@@ -89,6 +90,7 @@ class filetracking extends Component{
                                                     
                                                 )
                                             )
+                                            : <tr><Spinner color="primary" /></tr>
                                             
                                         }
                                 </tbody>

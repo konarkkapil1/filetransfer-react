@@ -5,6 +5,7 @@ import Homeicon from '../../assets/home.png'
 import Addfile from '../../assets/addfile.png'
 import Trackfile from '../../assets/trackfile.png'
 import Filehistory from '../../assets/filetrack.png'
+import Currentfile from '../../assets/currentfile.png'
 
 class sidebar extends Component{
     constructor(props){
@@ -29,13 +30,18 @@ class sidebar extends Component{
                         <NavItem className="sidebar-navitem">
                             <Link className="sidebarlink" to="/dashboard"><span><img style={{marginTop:-5+'px'}} height="20px" src={Homeicon}/></span> Home</Link>
                         </NavItem>
-                        
+
                         <NavItem className="sidebar-navitem">
                             <Link className="sidebarlink" to="/dashboard/create-file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Addfile}/></span> Create File</Link>
                         </NavItem>
 
                         <NavItem className="sidebar-navitem">
-                            <Link className="sidebarlink" to="/dashboard/file-history"><span><img style={{marginTop:-5+'px'}} height="20px" src={Filehistory}/></span> File History</Link>
+                            <Link className="sidebarlink" to="/dashboard/current-file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Currentfile}/></span> Current Files</Link>
+                        </NavItem>
+                        
+
+                        <NavItem className="sidebar-navitem">
+                            <Link className="sidebarlink" to="/dashboard/file-history"><span><img style={{marginTop:-5+'px'}} height="20px" src={Filehistory}/></span> History</Link>
                         </NavItem>
 
                         <NavItem className="sidebar-navitem">

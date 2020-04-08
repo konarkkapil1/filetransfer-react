@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container,Row,Col,Alert } from 'reactstrap';
+import { Container,Row,Col,Alert,Spinner } from 'reactstrap';
 import Header from '../header/header';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -21,7 +21,8 @@ constructor(props){
     this.state = {
         'email':'',
         'password':'',
-        'error':''
+        'error':'',
+        'isloading':''
     };
 }
 changeHandler = (e) =>{
@@ -34,13 +35,16 @@ submitHandler = (e) => {
         this.setState({'error':<Alert color="danger">Fields cannot be empty !</Alert>})
     }
     else{
-
+        this.setState({'error':''})
+        this.setState({'isloading':true})
         axios.post("/filetransfer/api/account/login.php",qs.stringify(this.state))
             .then(response =>{
                 if(!(response.data.token == null)){
+                    this.setState({'isloading':false})
                     this.props.history.push('/dashboard');
                 }else{
                     this.setState({'error':<Alert color="danger">Wrong username and password combination !</Alert>})
+                    this.setState({'isloading':false})
                 }
             })
             .catch(error => {
@@ -79,6 +83,7 @@ render(){
                                 <button className="btn btn-lg btn-primary btn-block" type="submit">SIGN IN</button>
                                 <div className="mt-3">
                                     {this.state.error}
+                                    {this.state.isloading ? <Spinner color="primary" /> : ''}
                                 </div>
                                 
                             </form>

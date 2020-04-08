@@ -82,6 +82,7 @@ class track extends Component {
                                                     <th>serial</th>
                                                     <th>File number</th>
                                                     <th>From</th>
+                                                    <th></th>
                                                     <th>To</th>
                                                     <th>Time</th>
                                                 </tr>
@@ -91,6 +92,7 @@ class track extends Component {
                                                     <td>{serial}</td>
                                                     <td>{filenumber}</td>
                                                     <td>{from}</td>
+                                                    <td>➡️</td>
                                                     <td>{to}</td>
                                                     <td>{time}</td>
                                                 </tr>

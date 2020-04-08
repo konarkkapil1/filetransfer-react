@@ -74,7 +74,7 @@ class trackfile extends Component{
                                 <tbody>
                                     {
                                         !isloading ? 
-                                            !(data == '') ?
+                                            !(data == null) ?
                                                 data.map(result => {
                                                     const {serial, file_number,from,to,timestamp} = result
                                                     return(
