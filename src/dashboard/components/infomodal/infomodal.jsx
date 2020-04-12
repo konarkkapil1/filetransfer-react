@@ -16,7 +16,7 @@ const ModalExample = (props) => {
 
   return (
       <React.Fragment>
-        <Modal isOpen={modal} toggle={toggle} className={className}>
+        <Modal className="info-modal" isOpen={modal} toggle={toggle} className={className}>
             <ModalHeader toggle={toggle}>{title}</ModalHeader>
             <ModalBody>
             <h6>{toplabel}</h6>

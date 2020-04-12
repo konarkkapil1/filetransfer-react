@@ -43,6 +43,14 @@ class trackfile extends Component{
     
     render(){
         const {isloading , data ,searchfield} = this.state
+        
+        var filtereddata = []
+        if(!(data == null)){
+            filtereddata = data.filter(newdata => {
+                newdata.file_number.includes(searchfield)
+            })
+            
+        }
         return(
             <React.Fragment>
                 <Pageheading name="File Tracking" />

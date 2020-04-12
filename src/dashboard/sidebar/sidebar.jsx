@@ -6,17 +6,18 @@ import Addfile from '../../assets/addfile.png'
 import Trackfile from '../../assets/trackfile.png'
 import Filehistory from '../../assets/filetrack.png'
 import Currentfile from '../../assets/currentfile.png'
+import Account from '../../assets/account.png'
+import axios from 'axios'
 
 class sidebar extends Component{
     constructor(props){
         super(props)
         this.state = {
-            'active': false
+            'active': false,
         }
     }
-    
+
     render(){
-        console.log(window.location.href)
         return(
             <nav className="sidebar sidebar-style bg-dark sidebar-height col-md-2 d-none d-md-block">
                 <div className="sidebar-sticky">
@@ -31,9 +32,19 @@ class sidebar extends Component{
                             <Link className="sidebarlink" to="/dashboard"><span><img style={{marginTop:-5+'px'}} height="20px" src={Homeicon}/></span> Home</Link>
                         </NavItem>
 
-                        <NavItem className="sidebar-navitem">
-                            <Link className="sidebarlink" to="/dashboard/create-file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Addfile}/></span> Create File</Link>
-                        </NavItem>
+                        {
+                            this.props.data.roleid == 100 && <NavItem className="sidebar-navitem">
+                                <Link className="sidebarlink" to="/dashboard/create-account"><span><img style={{marginTop:-5+'px'}} height="20px" src={Account}/></span> Create Account</Link>
+                            </NavItem>
+                        }
+                        
+
+                        {
+                            this.props.data.roleid == 2 && <NavItem className="sidebar-navitem">
+                                <Link className="sidebarlink" to="/dashboard/create-file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Addfile}/></span> Create File</Link>
+                            </NavItem>
+                        }
+                        
 
                         <NavItem className="sidebar-navitem">
                             <Link className="sidebarlink" to="/dashboard/current-file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Currentfile}/></span> Current Files</Link>

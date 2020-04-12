@@ -51,6 +51,12 @@
 .dashboard-header, .header{
   box-shadow: 7px -3px 20px 0px #ccc;
 }
+.dashboard-header{
+  position: fixed !important;
+  width: inherit;
+  z-index: 1111;
+  background-color: #fff;
+}
 .header-logo{
   margin-top: -7px;
 }
@@ -89,7 +95,7 @@
 .sidebar{
   padding: 0px !important;
   position: fixed !important;
-  z-index: 222;
+  z-index: 2222;
 }
 .sidebar-menu{
   margin-top: 18px !important;
@@ -108,7 +114,7 @@
   /* border:1px solid red; */
   padding: 10px 10px;
   padding-left: 10vw;
-  margin-top: 30px;
+  margin-top: 80px;
   
 }
 .body-container{
@@ -163,4 +169,15 @@
 }
 .dropdown{
   margin: 5px;
+}
+.header-link-container{
+  display: table !important;
+}
+.header-link{
+  display: table-cell !important;
+  padding-right: 20px;
+  cursor:pointer;
+}
+.modal-content{
+  margin-top: 100px !important;
 }

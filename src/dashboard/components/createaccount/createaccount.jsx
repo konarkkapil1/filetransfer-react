@@ -11,50 +11,40 @@ class createfile extends Component{
         super(props)
 
         this.state = {
-            'filename':'',
-            'filedesc':'',
-            'submittor_name':'',
-            'submittor_contact':'',
-            'submittor_email': '',
+            'name':'',
+            'phone':'',
+            'email': '',
             'error':'',
+            'dept_id':'0',
+            'role':'0',
             'response':'',
             'isloading':false,
-            'to_id':'',
-            'users': [],
+            'password':'',
+            'depts': [],
+            'roles':[],
             'success': false,
-            'file_number':''
         }
 
     }
 
     changeHandler = (event) => {
         this.setState({[event.target.name]: event.target.value})
-        console.log(this.state.to)
     }
 
     submitHandler = (event) => {
         event.preventDefault()
         this.setState({'response':''})
         this.setState({'error':''})
-        if(this.state.filedesc === '' || this.state.filename === '' || this.state.submittor_contact === '' || this.state.submittor_email === '' || this.state.submittor_name === ''){
+        if(this.state.name === '' || this.state.phone === '' || this.state.email === '' || this.state.dept_id == '0' || this.state.role == '0' || this.state.password === ''){
             this.setState({'error':<Alert color="danger">Fields cannot be empty !</Alert>})
         }else{
             this.setState({'isloading':true})
-            axios.post("/filetransfer/api/files/create.php",qs.stringify(this.state))
+            axios.post("/filetransfer/api/account/signup.php",qs.stringify(this.state))
                 .then(response => {
                     console.log(response.data)
-                    this.setState({'response' : <Infomodal title='File Created' body={response.data.filenumber} toplabel='File has been create save this file number for future refrence' />})
+                    this.setState({'response' : <Infomodal title='Account Created' body="User can now login" />})
                     this.setState({'isloading' : false})
-                    this.setState({'file_number' : response.data.filenumber})
                     this.setState({'success' : true})
-                    if(!(this.state.to_id == '')){
-                        axios.post("/filetransfer/api/files/transfer.php",qs.stringify(this.state))
-                            .then(response => {
-                                console.log(response.data)
-                                console.log("transfer done")
-                            })
-                            .catch(err => console.log(err))
-                    }
                 })
                 .catch(error => (
                     this.setState({'error':<Alert color="danger">Error occured! Try again</Alert>})
@@ -65,22 +55,31 @@ class createfile extends Component{
 
     getdata = () => {
         console.log("fetching data")
-        axios.post("/filetransfer/api/account/fetch.php")
+
+        axios.post("/filetransfer/api/department/fetch.php")
             .then(data => {
-                this.setState({'users':data.data})
+                this.setState({'depts':data.data})
             })
             .catch(err => console.log(err))
+
+        axios.post("/filetransfer/api/role/fetch.php")
+        .then(data => {
+            this.setState({'roles':data.data})
+        })
+        .catch(err => console.log(err))
     }
     componentDidMount(){
         this.getdata()
     }
 
     render(){
-        const { users } = this.state
-        if(this.props.data.roleid == 2){
+        const { depts,roles } = this.state
+        console.log(this.props.data)
+        
+        if(this.props.data.roleid == 100){
             return(
                 <div>
-                    <Pageheading name="Create File" />
+                    <Pageheading name="Create Account" />
                     <div className="content-container">
                         <div className="content-body">
                             
@@ -88,38 +87,45 @@ class createfile extends Component{
                                 
                                 <Form onSubmit={this.submitHandler}>
                                     <FormGroup row>
-                                        <Label>File Name</Label>
-                                        <Input type="text" name="filename" onChange={this.changeHandler} />
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Label>File Description</Label>
-                                        <Input type="textarea" name="filedesc" onChange={this.changeHandler} />
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Label>Submitted by</Label>
-                                        <Input type="text" name="submittor_name" onChange={this.changeHandler} />
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Label>Contact</Label>
-                                        <Input type="tel" name="submittor_contact" onChange={this.changeHandler} />
+                                        <Label>Name</Label>
+                                        <Input type="text" name="name" onChange={this.changeHandler} />
                                     </FormGroup>
                                     <FormGroup row>
                                         <Label>Email</Label>
-                                        <Input type="email" name="submittor_email" onChange={this.changeHandler} />
+                                        <Input type="email" name="email" onChange={this.changeHandler} />
                                     </FormGroup>
                                     <FormGroup row>
-                                        <Label>Transfer To: </Label>
-                                        <Input type="select" name="to_id" onChange={this.changeHandler} >
-                                            <option>Select user</option>
+                                        <Label>Phone</Label>
+                                        <Input type="tel" name="phone" onChange={this.changeHandler} />
+                                    </FormGroup>
+                                    <FormGroup row>
+                                        <Label>Create Password</Label>
+                                        <Input type="password" name="password" onChange={this.changeHandler} />
+                                    </FormGroup>
+                                    <FormGroup row>
+                                        <Label>Department</Label>
+                                        <Input type="select" name="dept_id" onChange={this.changeHandler} >
+                                            <option value="0">Select Department</option>
                                             {
-                                                users.map(user => 
-                                                    <option key={user.userid} value={user.userid}>{user.name}</option>
+                                                depts.map(dept => 
+                                                    <option key={dept.id} value={dept.id}>{dept.name}</option>
                                                 )
                                             }
                                         </Input>
                                     </FormGroup>
                                     <FormGroup row>
-                                        <Button color="primary">CREATE FILE</Button>
+                                        <Label>Role </Label>
+                                        <Input type="select" name="role" onChange={this.changeHandler} >
+                                            <option value="0">Select Role</option>
+                                            {
+                                                roles.map(role => 
+                                                    <option key={role.id} value={role.id}>{role.name}</option>
+                                                )
+                                            }
+                                        </Input>
+                                    </FormGroup>
+                                    <FormGroup row>
+                                        <Button color="primary">CREATE USER</Button>
                                     </FormGroup>
                                     
                                 </Form>
@@ -130,7 +136,7 @@ class createfile extends Component{
                                 <div>
                                     {this.state.error}
                                 </div>
-                                <Alert color="light"><h6>Warning!</h6> File will not be transfered to any user if you do not select transfer option above</Alert>
+                                
                                 
                             </div>
                             
@@ -139,11 +145,8 @@ class createfile extends Component{
                     
                 </div>
             )
-        }else{
-            return(
-                <Redirect to="/dashboard" />
-            )
         }
+        else{ return(<Redirect to="/dashboard" />)}
     }
 }
 

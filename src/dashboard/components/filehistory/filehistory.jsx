@@ -69,7 +69,6 @@ class filetracking extends Component{
                                 <thead>
                                     <tr>
                                         <th>SERIAL</th>
-                                        <th>TRACKING ID</th>
                                         <th>FILE NUMBER</th>
                                         <th>CREATED ON</th>
                                     </tr>
@@ -83,7 +82,6 @@ class filetracking extends Component{
                                                     
                                                         <tr key={freshdata.serial}>
                                                             <td>{freshdata.serial}</td>
-                                                            <td>{freshdata.trackingid}</td>
                                                             <td>{freshdata.file_number}</td>
                                                             <td>{freshdata.created_on}</td>
                                                         </tr>

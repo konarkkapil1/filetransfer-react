@@ -7,12 +7,7 @@ import qs from 'qs';
 import { Redirect } from 'react-router-dom';
 import Loginimage from '../assets/login.png';
 
-var styles = {
-    backgroundImage: `url(${Loginimage})`,
-    backgroundPosition: '30px 10px',
-    backgroundSize: '500px',
-    backgroundRepeat: 'no-repeat'
-};
+
 
 class login extends Component{
 
@@ -22,7 +17,9 @@ constructor(props){
         'email':'',
         'password':'',
         'error':'',
-        'isloading':''
+        'isloading':'',
+        'login':false,
+        'data':[]
     };
 }
 changeHandler = (e) =>{
@@ -41,7 +38,9 @@ submitHandler = (e) => {
             .then(response =>{
                 if(!(response.data.token == null)){
                     this.setState({'isloading':false})
-                    this.props.history.push('/dashboard');
+                    this.setState({'data' : response.data})
+                    // this.setState({'login':true})
+                    this.props.history.push('/dashboard')
                 }else{
                     this.setState({'error':<Alert color="danger">Wrong username and password combination !</Alert>})
                     this.setState({'isloading':false})
@@ -60,8 +59,10 @@ render(){
     if(cookie !== undefined){
         return(
             <Redirect to="/dashboard" />
+            // <h1>done</h1>
         );
-    }else{
+    }
+    else{
         return(
             <div >
                 <Header navlink="/track" linktext="TRACK FILE"/>
