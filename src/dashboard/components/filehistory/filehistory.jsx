@@ -70,6 +70,9 @@ class filetracking extends Component{
                                     <tr>
                                         <th>SERIAL</th>
                                         <th>FILE NUMBER</th>
+                                        <th>FILE DESCRIPTION</th>
+                                        <th>SUBMITTOR NAME</th>
+                                        <th>SUBMITTOR CONTACT</th>
                                         <th>CREATED ON</th>
                                     </tr>
                                 </thead>
@@ -78,15 +81,18 @@ class filetracking extends Component{
                                         {
                                             !isloading ?
                                             filtereddata.map(freshdata => 
-                                                (
-                                                    
+                                                {
+                                                    return(
                                                         <tr key={freshdata.serial}>
                                                             <td>{freshdata.serial}</td>
                                                             <td>{freshdata.file_number}</td>
+                                                            <td>{freshdata.file_desc}</td>
+                                                            <td>{freshdata.submittor_name}</td>
+                                                            <td>{freshdata.submittor_contact}</td>
                                                             <td>{freshdata.created_on}</td>
                                                         </tr>
-                                                    
-                                                )
+                                                    )
+                                                }
                                             )
                                             : <tr><Spinner color="primary" /></tr>
                                             

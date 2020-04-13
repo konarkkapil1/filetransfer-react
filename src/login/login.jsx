@@ -42,7 +42,7 @@ submitHandler = (e) => {
                     // this.setState({'login':true})
                     this.props.history.push('/dashboard')
                 }else{
-                    this.setState({'error':<Alert color="danger">Wrong username and password combination !</Alert>})
+                    this.setState({'error':<Alert color="danger">{response.data.autherror}</Alert>})
                     this.setState({'isloading':false})
                 }
             })

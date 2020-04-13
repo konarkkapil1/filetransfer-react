@@ -45,19 +45,32 @@ class sidebar extends Component{
                             </NavItem>
                         }
                         
-
-                        <NavItem className="sidebar-navitem">
-                            <Link className="sidebarlink" to="/dashboard/current-file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Currentfile}/></span> Current Files</Link>
-                        </NavItem>
+                        {
+                            this.props.data.roleid == 1 && <NavItem className="sidebar-navitem">
+                                <Link className="sidebarlink" to="/dashboard/current-file"><span><img style={{marginTop:-5+'px'}} height="20px" src={Currentfile}/></span> Current Files</Link>
+                            </NavItem>
+                        }
                         
+                        {
+                            this.props.data.roleid == 1 && <NavItem className="sidebar-navitem">
+                                <Link className="sidebarlink" to="/dashboard/file-history"><span><img style={{marginTop:-5+'px'}} height="20px" src={Filehistory}/></span> History</Link>
+                            </NavItem>
+                        }
 
-                        <NavItem className="sidebar-navitem">
-                            <Link className="sidebarlink" to="/dashboard/file-history"><span><img style={{marginTop:-5+'px'}} height="20px" src={Filehistory}/></span> History</Link>
-                        </NavItem>
+                        {
+                            this.props.data.roleid == 1 || this.props.data.roleid == 2 && <NavItem className="sidebar-navitem">
+                                <Link className="sidebarlink" to="/dashboard/file-tracking"><span><img style={{marginTop:-5+'px'}} height="20px" src={Trackfile}/></span> File Tracking</Link>
+                            </NavItem>
+                        }
 
-                        <NavItem className="sidebar-navitem">
-                            <Link className="sidebarlink" to="/dashboard/file-tracking"><span><img style={{marginTop:-5+'px'}} height="20px" src={Trackfile}/></span> File Tracking</Link>
-                        </NavItem>
+                        {
+                            this.props.data.roleid == 100 && <NavItem className="sidebar-navitem">
+                                <Link className="sidebarlink" to="/dashboard/employee-management"><span><img style={{marginTop:-5+'px'}} height="20px" src={Account}/></span> Employee Management</Link>
+                            </NavItem>
+                        }
+                        
+                        
+                        
                         
                     </Nav>
                     

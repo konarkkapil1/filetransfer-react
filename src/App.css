@@ -181,3 +181,7 @@
 .modal-content{
   margin-top: 100px !important;
 }
+.alert{
+  color: #FFF !important;
+  background-color: #EB5757 !important;
+}
