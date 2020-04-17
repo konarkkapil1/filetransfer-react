@@ -29,7 +29,7 @@ changeHandler = (e) =>{
 submitHandler = (e) => {
     e.preventDefault();
     if(this.state.email === '' || this.state.password === ''){
-        this.setState({'error':<Alert color="danger">Fields cannot be empty !</Alert>})
+        this.setState({'error':<Alert className="alert-red" color="danger">Fields cannot be empty! 🙁</Alert>})
     }
     else{
         this.setState({'error':''})
@@ -42,7 +42,7 @@ submitHandler = (e) => {
                     // this.setState({'login':true})
                     this.props.history.push('/dashboard')
                 }else{
-                    this.setState({'error':<Alert color="danger">{response.data.autherror}</Alert>})
+                    this.setState({'error':<Alert className="alert-red" color="danger">{response.data.autherror} 😕</Alert>})
                     this.setState({'isloading':false})
                 }
             })

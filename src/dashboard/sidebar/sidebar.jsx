@@ -7,6 +7,7 @@ import Trackfile from '../../assets/trackfile.png'
 import Filehistory from '../../assets/filetrack.png'
 import Currentfile from '../../assets/currentfile.png'
 import Account from '../../assets/account.png'
+import Createaccount from '../../assets/createaccount.png'
 import axios from 'axios'
 
 class sidebar extends Component{
@@ -34,7 +35,7 @@ class sidebar extends Component{
 
                         {
                             this.props.data.roleid == 100 && <NavItem className="sidebar-navitem">
-                                <Link className="sidebarlink" to="/dashboard/create-account"><span><img style={{marginTop:-5+'px'}} height="20px" src={Account}/></span> Create Account</Link>
+                                <Link className="sidebarlink" to="/dashboard/create-account"><span><img style={{marginTop:-5+'px'}} height="20px" src={Createaccount}/></span> Create Account</Link>
                             </NavItem>
                         }
                         

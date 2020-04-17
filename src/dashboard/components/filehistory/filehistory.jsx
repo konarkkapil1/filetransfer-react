@@ -77,26 +77,25 @@ class filetracking extends Component{
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
-                                        {
-                                            !isloading ?
-                                            filtereddata.map(freshdata => 
-                                                {
-                                                    return(
-                                                        <tr key={freshdata.serial}>
-                                                            <td>{freshdata.serial}</td>
-                                                            <td>{freshdata.file_number}</td>
-                                                            <td>{freshdata.file_desc}</td>
-                                                            <td>{freshdata.submittor_name}</td>
-                                                            <td>{freshdata.submittor_contact}</td>
-                                                            <td>{freshdata.created_on}</td>
-                                                        </tr>
-                                                    )
-                                                }
-                                            )
-                                            : <tr><Spinner color="primary" /></tr>
-                                            
-                                        }
+                                    {
+                                        !isloading ?
+                                        filtereddata.map(freshdata => 
+                                            {
+                                                return(
+                                                    <tr key={freshdata.serial}>
+                                                        <td>{freshdata.serial}</td>
+                                                        <td>{freshdata.file_number}</td>
+                                                        <td>{freshdata.file_desc}</td>
+                                                        <td>{freshdata.submittor_name}</td>
+                                                        <td>{freshdata.submittor_contact}</td>
+                                                        <td>{freshdata.created_on}</td>
+                                                    </tr>
+                                                )
+                                            }
+                                        )
+                                        : <tr><Spinner color="primary" /></tr>
+                                        
+                                    }
                                 </tbody>
                             </Table>
                         </div>

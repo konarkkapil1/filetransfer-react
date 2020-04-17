@@ -8,6 +8,7 @@ import Filetracking from './components/filetracking/filetracking';
 import Currentfile from './components/currentfile/currentfile';
 import Createaccount from './components/createaccount/createaccount';
 import Employeemanagement from './components/employeemanagement/employeemanagement'
+import Home from './components/home/home'
 import axios from 'axios'
 
 class layout extends Component{
@@ -17,7 +18,8 @@ class layout extends Component{
             'username': '',
             'role': '',
             'department': '',
-            'roleid':''
+            'roleid':'',
+            'active':''
         }
     }
 
@@ -28,19 +30,20 @@ class layout extends Component{
                 this.setState({'role' : data.data.rolename})
                 this.setState({'department':data.data.deptname})
                 this.setState({'roleid':data.data.roleid})
+                this.setState({'active':data.data.active})
             })
             .catch(err => console.log(err))
     }
 
     render(){
-        // console.log(this.props.data)
+        // console.log(this.state.active)
         return(
             <div onLoad={this.loaddata}>
                 <Sidebar data={this.state} />
                 <div className="body-container">
                     <Header username={this.state.username}  department={this.state.department} role={this.state.role} />
                     <Switch>
-                        <Route exact path="/dashboard" component= {dash} />
+                        <Route exact path="/dashboard"> <Home /> </Route>
                         <Route path="/dashboard/file-tracking"><Filetracking data={this.state} /></Route>
                         <Route path="/dashboard/create-file"> <CreateFile data={this.state} /> </Route>
                         <Route path="/dashboard/file-history" component={Filehistory} />

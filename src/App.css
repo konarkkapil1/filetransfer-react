@@ -181,7 +181,16 @@
 .modal-content{
   margin-top: 100px !important;
 }
-.alert{
+.alert-red{
   color: #FFF !important;
-  background-color: #EB5757 !important;
+  background-color: #F53456 !important;
+}
+.red{
+  border-color: #F53456 !important;
+  color: #F53456 !important;
+  margin-right: 5px;
+}
+.red:hover{
+  background-color: #F53456 !important;
+  color:#FFF !important;
 }

@@ -2,29 +2,40 @@ import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import Pageheading from '../page-heading/pageheading'
-import {Form,Table} from 'reactstrap'
+import {Form,Table,Button} from 'reactstrap'
 class employeemanagement extends Component{
     constructor(props){
         super(props)
         this.state = {
             'users' : [],
             'loading': true,
-            'search':''
+            'search':'',
+            'useraction': []
         }
     }
     loaddata = () => {
         this.setState({'loading' : true})
+        console.log("fetching")
         axios.post("/filetransfer/api/account/fetch.php")
             .then(response => {
                 this.setState({'users' : response.data})
                 this.setState({'loading' : false})
-                console.log(response.data)
+                // console.log(response.data)
             })
             .catch(err => console.log(err))
     }
     changeHandler = (event) => {
         this.setState({'search': event.target.value})
         // console.log(this.state.search)
+    }
+    blockuser = (value) => {
+        console.log(this.state.useraction)
+        axios.post("/filetransfer/api/account/update.php",this.state.useraction)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => console.log(err))
+        console.log("block ended")
     }
 
     componentDidMount(){
@@ -35,12 +46,12 @@ class employeemanagement extends Component{
         const {users,search} = this.state
         var filteredusers = []
         if(!(users == null)){
-            console.log(users)
+            // console.log(users)
             filteredusers = users.filter(user => 
                 user.name.toLowerCase().includes(search)
             )
         }
-        console.log(filteredusers)
+        console.log(this.props.data.roleid)
         if(this.props.data.roleid == 2 || this.props.data.roleid == 100 ){
             return(
                 <div>
@@ -64,6 +75,7 @@ class employeemanagement extends Component{
                                             <th>Phone</th>
                                             <th>Department</th>
                                             <th>Role</th>
+                                            <th>actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -76,6 +88,10 @@ class employeemanagement extends Component{
                                                     <td>{filtereduser.phone}</td>
                                                     <td>{filtereduser.deptname}</td>
                                                     <td>{filtereduser.rolename}</td>
+                                                    <td>
+                                                        <Button className="red" outline >Delete User</Button>
+                                                        <Button onClick={()=>{filtereduser.active = !filtereduser.active; this.setState({'useraction': filtereduser}); this.blockuser(this.state.useraction)}} outline color="warning">{filtereduser.active == 1 ? "Block User" : "Unblock User"}</Button>
+                                                    </td>
                                                 </tr>
                                             )
                                         }
