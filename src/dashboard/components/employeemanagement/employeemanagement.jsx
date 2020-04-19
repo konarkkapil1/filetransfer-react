@@ -3,6 +3,8 @@ import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import Pageheading from '../page-heading/pageheading'
 import {Form,Table,Button} from 'reactstrap'
+import qs from 'qs'
+
 class employeemanagement extends Component{
     constructor(props){
         super(props)
@@ -30,7 +32,7 @@ class employeemanagement extends Component{
     }
     blockuser = (value) => {
         console.log(this.state.useraction)
-        axios.post("/filetransfer/api/account/update.php",this.state.useraction)
+        axios.post("/filetransfer/api/account/update.php",qs.stringify(value))
             .then(response => {
                 console.log(response.data)
             })
@@ -90,7 +92,7 @@ class employeemanagement extends Component{
                                                     <td>{filtereduser.rolename}</td>
                                                     <td>
                                                         <Button className="red" outline >Delete User</Button>
-                                                        <Button onClick={()=>{filtereduser.active = !filtereduser.active; this.setState({'useraction': filtereduser}); this.blockuser(this.state.useraction)}} outline color="warning">{filtereduser.active == 1 ? "Block User" : "Unblock User"}</Button>
+                                                        <Button onClick={()=>{filtereduser.active == "0" ? filtereduser.active = "1" : filtereduser.active = "0";console.log(filtereduser.active === "1") ; this.setState({'useraction': filtereduser}); this.blockuser(this.state.useraction)}} outline color="warning">{filtereduser.active == 1 ? "Block User" : "Unblock User"}</Button>
                                                     </td>
                                                 </tr>
                                             )
