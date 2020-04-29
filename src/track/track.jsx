@@ -69,41 +69,43 @@ class track extends Component {
                         </Col>
                         
                     </Row>
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>serial</th>
+                                <th>File number</th>
+                                <th>From</th>
+                                <th></th>
+                                <th>To</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                     
-                    {
-                        !isloading ? 
-                            (data.map(record =>{
-                                const {serial,filenumber,from,to,time} = record
-                                return(
-                                    <Card key={serial}>
-                                        <Table>
-                                            <thead>
-                                                <tr>
-                                                    <th>serial</th>
-                                                    <th>File number</th>
-                                                    <th>From</th>
-                                                    <th></th>
-                                                    <th>To</th>
-                                                    <th>Time</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{serial}</td>
-                                                    <td>{filenumber}</td>
-                                                    <td>{from}</td>
-                                                    <td>➡️</td>
-                                                    <td>{to}</td>
-                                                    <td>{time}</td>
-                                                </tr>
-                                            </tbody>
-                                        </Table>
-                                    </Card>
-                                )
-                            })
-                            
-                            ): (<div><Spinner color="primary" /></div>)
-                    }
+                            {
+                                !isloading ? 
+                                    (data.map(record =>{
+                                        const {serial,filenumber,from,to,time} = record
+                                        return(
+                                            
+                                                
+                                                        <tr>
+                                                            <td>{serial}</td>
+                                                            <td>{filenumber}</td>
+                                                            <td>{from}</td>
+                                                            <td>➡️</td>
+                                                            <td>{to}</td>
+                                                            <td>{time}</td>
+                                                        </tr>
+                                                    
+                                            
+                                        )
+                                    })
+                                    
+                                    ): (<div><Spinner color="primary" /></div>)
+                            }
+                        </tbody>
+                    </Table>
                 </Container>
             </React.Fragment>
             

@@ -51,60 +51,76 @@ class filetracking extends Component{
                 newdata.file_number.includes(search)
             )
         }
-
-        return(
-            <React.Fragment>
-                <Pageheading name="File History"/>
+        if(this.props.data.roleid ==''){
+            return(
                 <div className="content-container">
-                    <div className="content-body dashboard-table">
-                         
+                    <div className="content-body">
                         <div className="content">
-                            <div className="search-box">
-                                <Form>
-                                    <label>SEARCH: </label>
-                                    <input className="search-input" onChange={this.Handlechange} type="text" placeholder="File number" ></input>
-                                </Form>
-                            </div>
-                            <Table hover>
-                                <thead>
-                                    <tr>
-                                        <th>SERIAL</th>
-                                        <th>FILE NUMBER</th>
-                                        <th>FILE DESCRIPTION</th>
-                                        <th>SUBMITTOR NAME</th>
-                                        <th>SUBMITTOR CONTACT</th>
-                                        <th>CREATED ON</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        !isloading ?
-                                        filtereddata.map(freshdata => 
-                                            {
-                                                return(
-                                                    <tr key={freshdata.serial}>
-                                                        <td>{freshdata.serial}</td>
-                                                        <td>{freshdata.file_number}</td>
-                                                        <td>{freshdata.file_desc}</td>
-                                                        <td>{freshdata.submittor_name}</td>
-                                                        <td>{freshdata.submittor_contact}</td>
-                                                        <td>{freshdata.created_on}</td>
-                                                    </tr>
-                                                )
-                                            }
-                                        )
-                                        : <tr><Spinner color="primary" /></tr>
-                                        
-                                    }
-                                </tbody>
-                            </Table>
+                            <Spinner color="primary" />
                         </div>
-
                     </div>
                 </div>
-            </React.Fragment>
-            
-        )
+            )
+        }else{
+            if(this.props.data.roleid == 1 || this.props.data.roleid == 2){
+                return(
+                    <React.Fragment>
+                        <Pageheading name="File History"/>
+                        <div className="content-container">
+                            <div className="content-body dashboard-table">
+                                 
+                                <div className="content">
+                                    <div className="search-box">
+                                        <Form>
+                                            <label>SEARCH: </label>
+                                            <input className="search-input" onChange={this.Handlechange} type="text" placeholder="File number" ></input>
+                                        </Form>
+                                    </div>
+                                    <Table hover>
+                                        <thead>
+                                            <tr>
+                                                <th>SERIAL</th>
+                                                <th>FILE NUMBER</th>
+                                                <th>FILE DESCRIPTION</th>
+                                                <th>SUBMITTOR NAME</th>
+                                                <th>SUBMITTOR CONTACT</th>
+                                                <th>CREATED ON</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                !isloading ?
+                                                    filtereddata.length >0 ?
+                                                        filtereddata.map(freshdata => 
+                                                            {
+                                                                return(
+                                                                    <tr key={freshdata.serial}>
+                                                                        <td>{freshdata.serial}</td>
+                                                                        <td>{freshdata.file_number}</td>
+                                                                        <td>{freshdata.file_desc}</td>
+                                                                        <td>{freshdata.submittor_name}</td>
+                                                                        <td>{freshdata.submittor_contact}</td>
+                                                                        <td>{freshdata.created_on}</td>
+                                                                    </tr>
+                                                                )
+                                                            }
+                                                        )
+                                                    :<tr><td colSpan="6"><Alert color="warning">No Data Found 😕</Alert></td></tr>
+                                                : (<tr><td colSpan="6"><Spinner color="primary" /></td></tr>)
+                                                
+                                            }
+                                        </tbody>
+                                    </Table>
+                                </div>
+        
+                            </div>
+                        </div>
+                    </React.Fragment>
+                    
+                )
+            }
+        }
+        
     }
 }
 

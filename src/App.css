@@ -194,3 +194,18 @@
   background-color: #F53456 !important;
   color:#FFF !important;
 }
+.green{
+  background-color: #17b978 !important;
+  color: #fff !important;
+}
+.err-container{
+  margin-top: 20px;
+  background-color: #F53456 !important;
+}
+.err-container h1{
+  color: white !important;
+}
+.alert-warning{
+  color:#4f4f4f !important;
+  background-color: #ffe270 !important;
+}

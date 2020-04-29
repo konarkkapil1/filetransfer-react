@@ -8,6 +8,7 @@ import Filetracking from './components/filetracking/filetracking';
 import Currentfile from './components/currentfile/currentfile';
 import Createaccount from './components/createaccount/createaccount';
 import Employeemanagement from './components/employeemanagement/employeemanagement'
+import CompletedFiles from './components/completedfiles/completedfiles'
 import Home from './components/home/home'
 import axios from 'axios'
 
@@ -46,10 +47,11 @@ class layout extends Component{
                         <Route exact path="/dashboard"> <Home /> </Route>
                         <Route path="/dashboard/file-tracking"><Filetracking data={this.state} /></Route>
                         <Route path="/dashboard/create-file"> <CreateFile data={this.state} /> </Route>
-                        <Route path="/dashboard/file-history" component={Filehistory} />
-                        <Route path="/dashboard/current-file" component={Currentfile} />
+                        <Route path="/dashboard/file-history" ><Filehistory data={this.state} /></Route>
+                        <Route path="/dashboard/current-file" ><Currentfile data={this.state} /></Route>
                         <Route path="/dashboard/create-account" ><Createaccount data={this.state} /></Route>
                         <Route path="/dashboard/employee-management"><Employeemanagement data={this.state} /></Route>
+                        <Route path="/dashboard/completed-files"><CompletedFiles data={this.state} /></Route>
                     </Switch>
                 </div>
                 

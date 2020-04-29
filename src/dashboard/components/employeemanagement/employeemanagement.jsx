@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import Pageheading from '../page-heading/pageheading'
-import {Form,Table,Button} from 'reactstrap'
+import {Form,Table,Button,Spinner} from 'reactstrap'
 import qs from 'qs'
 
 class employeemanagement extends Component{
@@ -54,61 +54,74 @@ class employeemanagement extends Component{
             )
         }
         console.log(this.props.data.roleid)
-        if(this.props.data.roleid == 2 || this.props.data.roleid == 100 ){
+        if(this.props.data.roleid == ''){
             return(
-                <div>
-                    <Pageheading name="Employee management" />
-                    <div className="content-container">
-                        <div className="content-body dashboard-table">
-                            <div className="content">
-
-                                <div className="search-box">
-                                    <Form>
-                                        <label>SEARCH: </label>
-                                        <input className="search-input" onChange={this.changeHandler} type="text" placeholder="Name" ></input>
-                                    </Form>
-                                </div>
-                                <Table hover>
-                                
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Department</th>
-                                            <th>Role</th>
-                                            <th>actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                        {
-                                            filteredusers.map(filtereduser => 
-                                                <tr>
-                                                    <td>{filtereduser.name}</td>
-                                                    <td>{filtereduser.email}</td>
-                                                    <td>{filtereduser.phone}</td>
-                                                    <td>{filtereduser.deptname}</td>
-                                                    <td>{filtereduser.rolename}</td>
-                                                    <td>
-                                                        <Button className="red" outline >Delete User</Button>
-                                                        <Button onClick={()=>{filtereduser.active == "0" ? filtereduser.active = "1" : filtereduser.active = "0";console.log(filtereduser.active === "1") ; this.setState({'useraction': filtereduser}); this.blockuser(this.state.useraction)}} outline color="warning">{filtereduser.active == 1 ? "Block User" : "Unblock User"}</Button>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        }
-                                        
-                                    </tbody>
-
-                                </Table>
-
-                            </div>
+                <div className="content-container">
+                    <div className="content-body">
+                        <div className="content">
+                            <Spinner color="primary" />
                         </div>
                     </div>
                 </div>
             )
-        }else{
-            return(<Redirect to="/dashboard" />)
+        }
+        else{
+            if(this.props.data.roleid == 2 || this.props.data.roleid == 100 ){
+                return(
+                    <div>
+                        <Pageheading name="Employee management" />
+                        <div className="content-container">
+                            <div className="content-body dashboard-table">
+                                <div className="content">
+
+                                    <div className="search-box">
+                                        <Form>
+                                            <label>SEARCH: </label>
+                                            <input className="search-input" onChange={this.changeHandler} type="text" placeholder="Name" ></input>
+                                        </Form>
+                                    </div>
+                                    <Table hover>
+                                    
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                                <th>Department</th>
+                                                <th>Role</th>
+                                                <th>actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            {
+                                                filteredusers.map(filtereduser => 
+                                                    <tr>
+                                                        <td>{filtereduser.name}</td>
+                                                        <td>{filtereduser.email}</td>
+                                                        <td>{filtereduser.phone}</td>
+                                                        <td>{filtereduser.deptname}</td>
+                                                        <td>{filtereduser.rolename}</td>
+                                                        <td>
+                                                            
+                                                            <Button onClick={()=>{filtereduser.active == "0" ? filtereduser.active = "1" : filtereduser.active = "0" ; this.blockuser(filtereduser);this.setState({'useraction':null})}} outline color="warning">{filtereduser.active == 1 ? "Block User" : "Unblock User"}</Button>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            }
+                                            
+                                        </tbody>
+
+                                    </Table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }else{
+                return(<Redirect to="/dashboard" />)
+            }
         }
         
     }

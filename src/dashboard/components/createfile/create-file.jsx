@@ -22,7 +22,8 @@ class createfile extends Component{
             'to_id':'',
             'users': [],
             'success': false,
-            'file_number':''
+            'file_number':'',
+            'pages':''
         }
 
     }
@@ -37,7 +38,7 @@ class createfile extends Component{
         this.setState({'response':''})
         this.setState({'error':''})
         if(this.state.filedesc === '' || this.state.filename === '' || this.state.submittor_contact === '' || this.state.submittor_email === '' || this.state.submittor_name === ''){
-            this.setState({'error':<Alert color="danger">Fields cannot be empty !</Alert>})
+            this.setState({'error':<Alert color="danger" className="alert-red">Fields cannot be empty! 😕</Alert>})
         }else{
             this.setState({'isloading':true})
             axios.post("/filetransfer/api/files/create.php",qs.stringify(this.state))
@@ -57,7 +58,7 @@ class createfile extends Component{
                     }
                 })
                 .catch(error => (
-                    this.setState({'error':<Alert color="danger">Error occured! Try again</Alert>})
+                    this.setState({'error':<Alert color="danger" className="alert-red">Error occured! Try again</Alert>})
                 ))
             
         }
@@ -77,72 +78,90 @@ class createfile extends Component{
 
     render(){
         const { users } = this.state
-        if(this.props.data.roleid == 2){
+        if(this.props.data.roleid == ''){
             return(
-                <div>
-                    <Pageheading name="Create File" />
-                    <div className="content-container">
-                        <div className="content-body">
-                            
-                            <div className="content">
+                <div className="content-container">
+                    <div className="content-body">
+                        <div className="content">
+                            <Spinner color="primary" />
+                        </div>
+                    </div>
+                </div>
+                
+            )
+        }
+        else{
+            if(this.props.data.roleid == 2){
+                return(
+                    <div>
+                        <Pageheading name="Create File" />
+                        <div className="content-container">
+                            <div className="content-body">
                                 
-                                <Form onSubmit={this.submitHandler}>
-                                    <FormGroup row>
-                                        <Label>File Name</Label>
-                                        <Input type="text" name="filename" onChange={this.changeHandler} />
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Label>File Description</Label>
-                                        <Input type="textarea" name="filedesc" onChange={this.changeHandler} />
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Label>Submitted by</Label>
-                                        <Input type="text" name="submittor_name" onChange={this.changeHandler} />
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Label>Contact</Label>
-                                        <Input type="tel" name="submittor_contact" onChange={this.changeHandler} />
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Label>Email</Label>
-                                        <Input type="email" name="submittor_email" onChange={this.changeHandler} />
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Label>Transfer To: </Label>
-                                        <Input type="select" name="to_id" onChange={this.changeHandler} >
-                                            <option>Select user</option>
-                                            {
-                                                users.map(user => 
-                                                    <option key={user.userid} value={user.userid}>{user.name}</option>
-                                                )
-                                            }
-                                        </Input>
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Button color="primary">CREATE FILE</Button>
-                                    </FormGroup>
+                                <div className="content">
                                     
-                                </Form>
-                                
-                                {
-                                    !this.state.isloading ? this.state.response : (<div><Spinner color="primary" /></div>)
-                                }
-                                <div>
-                                    {this.state.error}
+                                    <Form onSubmit={this.submitHandler}>
+                                        <FormGroup row>
+                                            <Label>File Name</Label>
+                                            <Input type="text" name="filename" onChange={this.changeHandler} />
+                                        </FormGroup>
+                                        <FormGroup row>
+                                            <Label>File Description</Label>
+                                            <Input type="textarea" name="filedesc" onChange={this.changeHandler} />
+                                        </FormGroup>
+                                        <FormGroup row>
+                                            <Label>Submitted by</Label>
+                                            <Input type="text" name="submittor_name" onChange={this.changeHandler} />
+                                        </FormGroup>
+                                        <FormGroup row>
+                                            <Label>Contact</Label>
+                                            <Input type="tel" name="submittor_contact" onChange={this.changeHandler} />
+                                        </FormGroup>
+                                        <FormGroup row>
+                                            <Label>Email</Label>
+                                            <Input type="email" name="submittor_email" onChange={this.changeHandler} />
+                                        </FormGroup>
+                                        <FormGroup row>
+                                            <Label>Transfer To: </Label>
+                                            <Input type="select" name="to_id" onChange={this.changeHandler} >
+                                                <option>Select user</option>
+                                                {
+                                                    users.map(user => 
+                                                        <option key={user.userid} value={user.userid}>{user.name}</option>
+                                                    )
+                                                }
+                                            </Input>
+                                        </FormGroup>
+                                        <FormGroup row>
+                                            <Label>Pages</Label>
+                                            <Input type="number" name="pages" onChange={this.changeHandler} />
+                                        </FormGroup>
+                                        <FormGroup row>
+                                            <Button color="primary">CREATE FILE</Button>
+                                        </FormGroup>
+                                        
+                                    </Form>
+                                    
+                                    {
+                                        !this.state.isloading ? this.state.response : (<div><Spinner color="primary" /></div>)
+                                    }
+                                    <div>
+                                        {this.state.error}
+                                    </div>
+                                    <Alert color="light"><h6>Warning!</h6> File will not be transfered to any user if you do not select transfer option above</Alert>
+                                    
                                 </div>
-                                <Alert color="light"><h6>Warning!</h6> File will not be transfered to any user if you do not select transfer option above</Alert>
                                 
                             </div>
-                            
-                        </div>
-                    </div>  
-                    
-                </div>
-            )
-        }else{
-            return(
-                <Redirect to="/dashboard" />
-            )
+                        </div>  
+                        
+                    </div>
+                )
+            }else{
+                return(
+                    <Redirect to="/dashboard" />
+                )
+            }
         }
     }
 }

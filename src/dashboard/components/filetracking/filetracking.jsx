@@ -47,7 +47,7 @@ class trackfile extends Component{
         const {isloading , data ,searchfield} = this.state
         
         var filtereddata = []
-
+        console.log(data)
         if(!(data == null)){
             console.log("inside")
             filtereddata = data.filter(newdata => 
@@ -55,65 +55,78 @@ class trackfile extends Component{
             )
             console.log(filtereddata)
         }
-        if(this.props.data.roleid == 1 || this.props.data.roleid == 2){
+        if(this.props.data.roleid == ''){
             return(
-                <React.Fragment>
-                    <Pageheading name="File Tracking" />
-                    
-                    <div className="content-container">
-                        <div className="content-body dashboard-table">
-                            
-                            <div className="content">
-                                <div className="search-box">
-                                    <Form>
-                                        <label>SEARCH: </label>
-                                        <input className="search-input" onChange={this.searchChange} type="text" placeholder="File number" ></input>
-                                    </Form>
-                                </div>
-                                
-                                <Table hover>
-                                
-                                    <thead>
-                                        <tr>
-                                        <th>SERIAL</th>
-                                        <th>FILE NUMBER</th>
-                                        <th>FROM USER</th>
-                                        <th></th>
-                                        <th>TO USER</th>
-                                        <th>TIME</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                    <tbody>
-                                        {
-                                            !isloading ? 
-                                                !(filtereddata == null) ?
-                                                    filtereddata.map(result => {
-                                                        const {serial, file_number,from,to,timestamp} = result
-                                                        return(
-                                                            <tr key={serial}>
-                                                                <td>{serial}</td>
-                                                                <td>{file_number}</td>
-                                                                <td>{from}</td>
-                                                                <th>➡️</th>
-                                                                <td>{to}</td>
-                                                                <td>{timestamp}</td>
-                                                            </tr>
-                                                        )
-                                                    })
-                                                : <Alert color="warning">No Data Found</Alert>
-            
-                                            : (<tr><Spinner color="primary" /></tr>)
-                                        }
-                                    </tbody>
-                                </Table>
-                                
-                            </div>
+                <div className="content-container">
+                    <div className="content-body">
+                        <div className="content">
+                            <Spinner color="primary" />
                         </div>
                     </div>
-                </React.Fragment>
+                </div>
             )
-        }else{return(<Redirect to="/dashboard" />)} 
+        }
+        else{
+            if(this.props.data.roleid == 1 || this.props.data.roleid == 2){
+                return(
+                    <React.Fragment>
+                        <Pageheading name="File Tracking" />
+                        
+                        <div className="content-container">
+                            <div className="content-body dashboard-table">
+                                
+                                <div className="content">
+                                    <div className="search-box">
+                                        <Form>
+                                            <label>SEARCH: </label>
+                                            <input className="search-input" onChange={this.searchChange} type="text" placeholder="File number" ></input>
+                                        </Form>
+                                    </div>
+                                    
+                                    <Table hover>
+                                    
+                                        <thead>
+                                            <tr>
+                                            <th>SERIAL</th>
+                                            <th>FILE NUMBER</th>
+                                            <th>FROM USER</th>
+                                            <th></th>
+                                            <th>TO USER</th>
+                                            <th>TIME</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                            {
+                                                !isloading ? 
+                                                    !(data == '') ?
+                                                        filtereddata.map(result => {
+                                                            const {serial, file_number,from,to,timestamp} = result
+                                                            return(
+                                                                <tr key={serial}>
+                                                                    <td>{serial}</td>
+                                                                    <td>{file_number}</td>
+                                                                    <td>{from}</td>
+                                                                    <th>➡️</th>
+                                                                    <td>{to}</td>
+                                                                    <td>{timestamp}</td>
+                                                                </tr>
+                                                            )
+                                                        })
+                                                    : <tr><td colSpan="6"><Alert color="warning">No Data Found</Alert></td></tr>
+                
+                                                : (<tr><td colSpan="6"><Spinner color="primary" /></td></tr>)
+                                            }
+                                        </tbody>
+                                    </Table>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </React.Fragment>
+                )
+            }else{return(<Redirect to="/dashboard" />)} 
+        }
     }
     
 }
