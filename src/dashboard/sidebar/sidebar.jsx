@@ -9,6 +9,7 @@ import Currentfile from '../../assets/currentfile.png'
 import Account from '../../assets/account.png'
 import Createaccount from '../../assets/createaccount.png'
 import Completed from '../../assets/complete.png'
+import Createdepartment from '../../assets/department.png'
 import axios from 'axios'
 
 class sidebar extends Component{
@@ -74,6 +75,12 @@ class sidebar extends Component{
                         {
                             this.props.data.roleid == 100 && <NavItem className="sidebar-navitem">
                                 <Link className="sidebarlink" to="/dashboard/employee-management"><span><img style={{marginTop:-5+'px'}} height="20px" src={Account}/></span> Employee Management</Link>
+                            </NavItem>
+                        }
+
+                        {
+                            this.props.data.roleid == 100 && <NavItem className="sidebar-navitem">
+                                <Link className="sidebarlink" to="/dashboard/create-department"><span><img style={{marginTop:-5+'px'}} height="20px" src={Createdepartment}/></span> Create Department</Link>
                             </NavItem>
                         }
                         

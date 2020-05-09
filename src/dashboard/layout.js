@@ -9,6 +9,7 @@ import Currentfile from './components/currentfile/currentfile';
 import Createaccount from './components/createaccount/createaccount';
 import Employeemanagement from './components/employeemanagement/employeemanagement'
 import CompletedFiles from './components/completedfiles/completedfiles'
+import Createdepartment from './components/createdepartment/createdepartment'
 import Home from './components/home/home'
 import axios from 'axios'
 
@@ -52,6 +53,7 @@ class layout extends Component{
                         <Route path="/dashboard/create-account" ><Createaccount data={this.state} /></Route>
                         <Route path="/dashboard/employee-management"><Employeemanagement data={this.state} /></Route>
                         <Route path="/dashboard/completed-files"><CompletedFiles data={this.state} /></Route>
+                        <Route path="/dashboard/create-department"><Createdepartment data={this.state} /></Route>
                     </Switch>
                 </div>
                 
